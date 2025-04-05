@@ -3,6 +3,7 @@ import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import AccountModal from "@/components/modals/AccountModal";
 import { AppContainer } from "@/components/structure/Providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
           <AccountModal />
           {children}
         </AppContainer>
+        <Toaster richColors />
       </body>
     </html>
   );
