@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAccountModal } from "../structure/ModalProviders";
 import {
   Credenza,
@@ -13,7 +13,7 @@ import {
 import { postAuthSignin, postAuthSignup } from "@/apis/authApi";
 import { useAccount } from "@/hooks/accountHooks";
 import { getTimezone } from "@/utils/tools";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -62,9 +62,11 @@ export const signUpFormSchema = z.object({
 
 export default function AccountModal() {
   const { accountModal, setAccountModal } = useAccountModal();
-  const { accountRefetch } = useAccount();
+  const { accountData, accountRefetch } = useAccount();
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const pathname = usePathname();
 
   const [isShowPassword, setIsShowPassword] = useState(false);
 
@@ -123,6 +125,16 @@ export default function AccountModal() {
     },
     [accountRefetch, setAccountModal, searchParams, router]
   );
+
+  useEffect(() => {
+    if (!accountData?.user_id && pathname !== "/") {
+      console.log("opened");
+      setAccountModal((prev) => ({ ...prev, isSignIn: true, opened: true }));
+    } else {
+      setAccountModal((prev) => ({ ...prev, opened: false }));
+      console.log("not opened");
+    }
+  }, [accountData]);
 
   return (
     <Credenza
@@ -197,11 +209,11 @@ export default function AccountModal() {
                   >
                     Login
                   </Button>
-                  <GoogleLoginBtn
+                  {/* <GoogleLoginBtn
                     scope={"email profile"}
                     required={"email"}
                     className="w-full"
-                  />
+                  /> */}
                 </form>
               </Form>
             </>
@@ -275,11 +287,11 @@ export default function AccountModal() {
                 >
                   Sign up
                 </Button>
-                <GoogleLoginBtn
+                {/* <GoogleLoginBtn
                   scope={"email profile"}
                   required={"email"}
                   className="w-full"
-                />
+                /> */}
               </form>
             </Form>
           )}

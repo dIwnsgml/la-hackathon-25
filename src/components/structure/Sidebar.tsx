@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -38,6 +38,7 @@ export default function SidebarWrapper() {
     },
   ];
   const [open, setOpen] = useState(false);
+  
   return (
     <Sidebar open={open} setOpen={setOpen}>
       <SidebarBody className="justify-between gap-10">
