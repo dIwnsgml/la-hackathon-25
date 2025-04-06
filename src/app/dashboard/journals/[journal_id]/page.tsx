@@ -30,7 +30,7 @@ import { Input } from "@/components/ui/input";
 import { useAccount } from "@/hooks/accountHooks";
 import useJournal from "@/hooks/journalsHooks";
 import socket from "@/utils/sockets/socket";
-import { ArrowRightIcon, Save, Trash2 } from "lucide-react";
+import { ArrowRightIcon, Brain, Loader2, Save, Trash2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
@@ -67,9 +67,10 @@ export default function Journal({ params }: PageProps) {
   const searchParams = useSearchParams();
   const isEdit = searchParams.get("edit");
 
-  const { journalData, clearJournalData } = useJournal(journal_id);
+  const { journalData, clearJournalData, journalIsLoading } =
+    useJournal(journal_id);
 
-  const [debouncedText] = useDebounce(textValue, 5000);
+  const [debouncedText] = useDebounce(textValue, 3000);
 
   const [messages, setMessages] = useState<any[]>([]);
 
@@ -97,7 +98,7 @@ export default function Journal({ params }: PageProps) {
   }, [journal_id]);
 
   useEffect(() => {
-    if (!debouncedText) return;
+    if (!debouncedText || debouncedText.length < 10) return;
     socket.emit("journal:comment", {
       journal_id,
       prevMsgs: messages,
@@ -105,6 +106,10 @@ export default function Journal({ params }: PageProps) {
       content: textValue,
     });
   }, [debouncedText]);
+
+  if (journalIsLoading) {
+    return <Loader2 className="animate-spin" />;
+  }
 
   if (!journalData) {
     return (
@@ -115,8 +120,8 @@ export default function Journal({ params }: PageProps) {
   }
 
   return (
-    <main className="w-full px-10 py-10 h-[100vh] flex gap-10">
-      <Card className="flex flex-col gap-3 w-full">
+    <main className="w-full px-10 py-10 h-[100vh] flex gap-10 overflow-hidden">
+      <Card className="flex flex-col gap-3 w-full overflow-hidden">
         <CardHeader>
           <div className="mb-5">
             <JournalBreadCrumb title={journalData?.title} />
@@ -216,39 +221,49 @@ export default function Journal({ params }: PageProps) {
           )}
         </CardFooter>
       </Card>
-      <div className="w-2xl h-[90vh] bg-white">
-        <ChatMessageList>
-          {messages.map((message, i) => {
-            const isMe = accountData?.user_id === message.user_id;
-            return (
-              <ChatBubble variant={isMe ? "sent" : "received"} key={i}>
-                <ChatBubbleAvatar fallback={isMe ? "Me" : "AI"} />
-                <ChatBubbleMessage variant={isMe ? "sent" : "received"}>
-                  {message.message}
-                </ChatBubbleMessage>
-              </ChatBubble>
-            );
-          })}
-        </ChatMessageList>
-        <Input
-          value={newMessage}
-          onChange={(e) => {
-            setNewMessage(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setNewMessage("");
-              socket.emit("journal:chat", {
-                journal_id,
-                message: newMessage,
-                prevMsgs: messages,
-                title: journalData.title,
-                content: textValue,
-              });
-            }
-          }}
-        />
-      </div>
+      <Card className="w-[40rem]">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            Journal Conversation with AI
+            <Brain />
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="h-full mb-5 overflow-auto">
+          <ChatMessageList>
+            {messages.map((message, i) => {
+              const isMe = accountData?.user_id === message.user_id;
+              return (
+                <ChatBubble variant={isMe ? "sent" : "received"} key={i}>
+                  <ChatBubbleAvatar fallback={isMe ? "Me" : "AI"} />
+                  <ChatBubbleMessage variant={isMe ? "sent" : "received"}>
+                    {message.message}
+                  </ChatBubbleMessage>
+                </ChatBubble>
+              );
+            })}
+          </ChatMessageList>
+        </CardContent>
+        <CardFooter>
+          <Input
+            value={newMessage}
+            onChange={(e) => {
+              setNewMessage(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setNewMessage("");
+                socket.emit("journal:chat", {
+                  journal_id,
+                  message: newMessage,
+                  prevMsgs: messages,
+                  title: journalData.title,
+                  content: textValue,
+                });
+              }
+            }}
+          />
+        </CardFooter>
+      </Card>
     </main>
   );
 }

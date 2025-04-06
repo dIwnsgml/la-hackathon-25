@@ -162,7 +162,6 @@ export function Plugins() {
             <FontSizeToolbarPlugin />
             <FontColorToolbarPlugin />
             <FontBackgroundToolbarPlugin />
-            <ElementFormatToolbarPlugin />
             <FontFormatToolbarPlugin format="bold" />
             <FontFormatToolbarPlugin format="italic" />
             <FontFormatToolbarPlugin format="underline" />

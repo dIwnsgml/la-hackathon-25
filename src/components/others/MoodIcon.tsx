@@ -19,11 +19,11 @@ const MoodIcon: React.FC<MoodIconProps> = ({ moodScore }) => {
   } else if (moodScore <= 40) {
     icon = <IconSad className="size-8 ml-2" />;
   } else if (moodScore <= 60) {
-    icon = <IconMid className="size-10 ml-2" />;
+    icon = <IconMid className="size-9 ml-2" />;
   } else if (moodScore <= 80) {
     icon = <IconHappy className="size-10 ml-2" />;
   } else {
-    icon = <IconVeryHappy className="size-10 ml-2" />;
+    icon = <IconVeryHappy className="size-8 ml-2" />;
   }
 
   return (

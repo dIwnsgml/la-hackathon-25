@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
-import { motion } from "motion/react";
 import Image from "next/image";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import { House, NotebookPen } from "lucide-react";
 import { getAuthLogout } from "@/apis/authApi";
+import { ThemeToggleBtn } from "../buttons/ThemeToggleBtn";
 
 export default function SidebarWrapper() {
   const links = [
@@ -49,6 +49,7 @@ export default function SidebarWrapper() {
             ))}
           </div>
         </div>
+        <ThemeToggleBtn />
       </SidebarBody>
     </Sidebar>
   );

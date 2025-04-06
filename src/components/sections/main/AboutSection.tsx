@@ -19,6 +19,8 @@ export default function AboutSection() {
           #1 App for Empowering Your <FlipWords words={words} />
         </h1>
 
+        <div className="absolute -top-20" id="about" />
+
         <p className="leading-relaxed">
           EASE is the #1 app that helps you regain control of your mental
           well-being and boost your emotional health. With intuitive features

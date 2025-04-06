@@ -59,7 +59,7 @@ export default function Home() {
       <HeroParallax products={products} />
       <AboutSection />
       <FeaturesSection />
-      <ReviewSection />
+      {/* <ReviewSection /> */}
     </main>
   );
 }

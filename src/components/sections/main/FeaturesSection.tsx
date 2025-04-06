@@ -3,13 +3,9 @@ import { ReactNode } from "react";
 import {
   Bot,
   ChartArea,
-  ChartNoAxesColumn,
   Eye,
-  Hourglass,
   MessageCircle,
-  MessageSquare,
   PenTool,
-  Trophy,
   Users,
 } from "lucide-react";
 import { fadeIn } from "@/animations/variants";
