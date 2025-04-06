@@ -68,9 +68,19 @@ export default function Journals() {
               <CardContent className="max-h-[25rem] overflow-auto">
                 {parse(journal.contents || "")}
               </CardContent>
-              <CardFooter className="flex justify-between">
+              <CardFooter
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                className="flex justify-between"
+              >
                 <AlertDialog>
-                  <AlertDialogTrigger asChild>
+                  <AlertDialogTrigger
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    asChild
+                  >
                     <Button
                       variant="destructive"
                       onClick={(e) => {
@@ -92,7 +102,13 @@ export default function Journals() {
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogCancel
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        Cancel
+                      </AlertDialogCancel>
                       <AlertDialogAction
                         onClick={async (e) => {
                           e.stopPropagation();
