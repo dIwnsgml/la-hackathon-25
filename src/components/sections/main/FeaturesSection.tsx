@@ -2,9 +2,13 @@ import { motion } from "framer-motion";
 import { ReactNode } from "react";
 import {
   Bot,
+  ChartArea,
   ChartNoAxesColumn,
+  Eye,
   Hourglass,
+  MessageCircle,
   MessageSquare,
+  PenTool,
   Trophy,
   Users,
 } from "lucide-react";
@@ -30,7 +34,6 @@ function Box({ title, description, children }: BoxProps) {
 
 //hella minor performance opt
 const featuresFadeIn = fadeIn({ once: true });
-
 export default function FeaturesSection() {
   return (
     <section className="section-container">
@@ -38,50 +41,51 @@ export default function FeaturesSection() {
         <div className="text-center">
           <h2 className="heading-sm">App Features</h2>
           <h1 className="heading-lg">
-            Powerful Features to Boost Your Focus and Productivity
+            Empower Your Well-Being with EASE’s Powerful Features
           </h1>
         </div>
         <div className="absolute -top-20" id="feature" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
           <Box
-            title="Timer and Study Tracker"
-            description="Efficiently manage your time and track your study progress with our intuitive timer and study tracker features."
+            title="Journaling with Prompts"
+            description="Reflect on your thoughts and emotions with private, guided journaling sessions designed to reduce stress and promote clarity."
           >
-            <Hourglass />
-          </Box>
-          <Box
-            title="Collaborative Study Groups"
-            description="Connect with like-minded individuals, form study groups, and share ideas to enhance your learning experience."
-          >
-            <Users />
+            <PenTool />
           </Box>
 
           <Box
-            title="AI-Based Study Suggestions"
-            description="Receive personalized study suggestions tailored to your interests and goals, powered by our advanced AI model."
+            title="Mood Tracker"
+            description="Track your daily moods and visualize emotional trends over time, helping you better understand your emotional health."
+          >
+            <ChartArea />
+          </Box>
+
+          <Box
+            title="AI Listener"
+            description="Chat with our AI, which acts as a supportive listener, providing personalized feedback and empathy."
           >
             <Bot />
           </Box>
 
           <Box
-            title="Active Community"
-            description="Engage with a vibrant community of learners, exchange knowledge, and receive support to stay motivated and inspired."
+            title="AI Feedback on Journal"
+            description="Receive positive and supportive comments from the AI on your journal entries, boosting your mood and fostering a sense of validation."
           >
-            <MessageSquare />
+            <MessageCircle />
           </Box>
 
           <Box
-            title="Study Analytics"
-            description="Gain insights into your study habits with detailed statistics and trends to improve your productivity."
+            title="Focus & Relax Mode"
+            description="Activate 'Stare Mode' to engage in calming ambient visuals designed to reduce stress and promote mental clarity."
           >
-            <ChartNoAxesColumn />
+            <Eye />
           </Box>
 
           <Box
-            title="Competitive Leaderboard"
-            description="Challenge yourself and others by competing on the leaderboard, fostering a sense of achievement and accountability."
+            title="Mental Health Community"
+            description="Join a supportive community of like-minded individuals who are focused on improving mental health and well-being."
           >
-            <Trophy />
+            <Users />
           </Box>
         </div>
       </motion.div>

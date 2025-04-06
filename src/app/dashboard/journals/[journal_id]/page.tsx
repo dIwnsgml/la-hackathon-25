@@ -30,7 +30,7 @@ import { Input } from "@/components/ui/input";
 import { useAccount } from "@/hooks/accountHooks";
 import useJournal from "@/hooks/journalsHooks";
 import socket from "@/utils/sockets/socket";
-import { Save, Trash2 } from "lucide-react";
+import { ArrowRightIcon, Save, Trash2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
@@ -47,6 +47,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import parse from "html-react-parser";
 import { DateTime } from "luxon";
+import MoodIcon from "@/components/others/MoodIcon";
+import RandomJournal from "@/components/journals/RandomJournal";
 
 type PageProps = {
   params: Promise<{ journal_id: string }>;
@@ -74,7 +76,7 @@ export default function Journal({ params }: PageProps) {
   const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
-    if (!journal_id) return;
+    if (!journal_id || journal_id === "new") return;
 
     (async () => {
       const response = await getChatJournal(journal_id);
@@ -104,6 +106,14 @@ export default function Journal({ params }: PageProps) {
     });
   }, [debouncedText]);
 
+  if (!journalData) {
+    return (
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <RandomJournal />
+      </div>
+    );
+  }
+
   return (
     <main className="w-full px-10 py-10 h-[100vh] flex gap-10">
       <Card className="flex flex-col gap-3 w-full">
@@ -112,10 +122,15 @@ export default function Journal({ params }: PageProps) {
             <JournalBreadCrumb title={journalData?.title} />
           </div>
           <CardTitle>{journalData?.title}</CardTitle>
-          <CardDescription>
+          <CardDescription className="flex items-center">
             {DateTime.fromSeconds(journalData?.created_at || 0).toLocaleString(
               DateTime.DATE_HUGE
             )}
+            {isEdit !== "true" ? (
+              <MoodIcon
+                moodScore={journalData?.mood_score ? journalData.mood_score : 0}
+              />
+            ) : null}
           </CardDescription>
         </CardHeader>
         <CardContent className="h-full mb-5">
@@ -129,7 +144,7 @@ export default function Journal({ params }: PageProps) {
                 }}
               />
             ) : (
-              <div className="overflow-auto h-[70vh]">
+              <div className="overflow-auto h-[60vh]">
                 {parse(journalData?.contents || "")}
               </div>
             )}
@@ -188,7 +203,7 @@ export default function Journal({ params }: PageProps) {
           ) : (
             <Button
               effect={"expandIcon"}
-              icon={Save}
+              icon={ArrowRightIcon}
               iconPlacement="right"
               onClick={async () => {
                 const currentParams = new URLSearchParams(searchParams);

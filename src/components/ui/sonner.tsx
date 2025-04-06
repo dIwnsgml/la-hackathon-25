@@ -38,7 +38,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--info-border": "var(--info-border, #fff)", */
         } as React.CSSProperties
       }
-      duration={600000}
+      duration={5000}
       {...props}
     />
   );

@@ -21,37 +21,19 @@ const components: { title: string; href: string; description: string }[] = [
     title: "Dashboard",
     href: "/dashboard",
     description:
-      "Stay organized and track your progress. Monitor study hours, view achievements, and plan your study sessions efficiently.",
+      "Stay organized and track your emotional health. Monitor your mood trends, view journal entries, and reflect on your mental well-being.",
   },
   {
-    title: "Study",
-    href: "/dashboard/study",
+    title: "Journals",
+    href: "/dashboard/journals",
     description:
-      "Access study materials, set personalized study plans, and engage with a community of learners for a more productive study session.",
+      "Write in your journal with personalized prompts. Reflect on your emotions, thoughts, and progress toward mental clarity and well-being.",
   },
   {
-    title: "Stats",
-    href: "/dashboard/stats",
+    title: "Mood Tracker",
+    href: "/dashboard",
     description:
-      "Track study hours, set goals, and analyze your performance over time.",
-  },
-  {
-    title: "Leaderboard",
-    href: "/dashboard/leaderboard",
-    description:
-      "Check your ranking and compete with others. Stay motivated and climb the leaderboard by achieving your study goals.",
-  },
-  {
-    title: "Groups",
-    href: "/dashboard/groups",
-    description:
-      "Join or create study groups. Collaborate with others, participate in group activities, and enhance your learning journey together.",
-  },
-  {
-    title: "Friends",
-    href: "/dashboard/friends",
-    description:
-      "Connect with friends, build a network of study buddies, and share achievements in a collaborative learning atmosphere.",
+      "Track your daily moods and visualize your emotional trends over time, helping you stay on top of your mental health.",
   },
 ];
 
@@ -59,7 +41,7 @@ export function MainHeader() {
   return (
     <header className="fixed z-10 backdrop-blur-sm w-screen px-16 flex items-center justify-between h-15">
       <div>
-        <h1 className="text-3xl font-bold">FLOZABLE</h1>
+        <h1 className="text-3xl font-bold">EASE</h1>
       </div>
       <NavigationMenu className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <NavigationMenuList>
@@ -84,7 +66,7 @@ export function MainHeader() {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          {/* <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -116,7 +98,7 @@ export function MainHeader() {
                 </ListItem>
               </ul>
             </NavigationMenuContent>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
           <NavigationMenuItem>
             <NavigationMenuTrigger>Dashboard</NavigationMenuTrigger>
             <NavigationMenuContent>

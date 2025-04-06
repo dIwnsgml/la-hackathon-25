@@ -20,29 +20,29 @@ export default function AboutSection() {
         </h1>
 
         <p className="leading-relaxed">
-          Flozable is the #1 app that empowers you to regain control of your
-          time and boost productivity. With innovative features and an
-          interactive community, Flozable is your ultimate tool for studying,
-          learning, and connecting with like-minded individuals.
+          EASE is the #1 app that helps you regain control of your mental
+          well-being and boost your emotional health. With intuitive features
+          like journaling, mood tracking, and AI-driven support, EASE is your
+          personal companion in your journey to healing and balance.
           <br />
           <br />
-          Experience the power of our advanced timer function, designed to
-          challenge you and keep you focused on your tasks. Our AI-based study
-          suggestions provide personalized course recommendations tailored to
-          your interests and weaknesses. Engage in group study sessions,
-          communicate with peers, and tap into the active community for
-          motivation and support.
+          Experience the power of reflective journaling with helpful prompts and
+          a supportive AI that offers personalized feedback. Track your mood
+          over time with our visual mood tracker and see how your emotional
+          landscape evolves.
           <br />
           <br />
-          Benefit from integrated school platform authorization, webcam support,
-          and microphone compatibility. Achieve your goals, track your progress
-          with detailed study analytics, and compete for the top spot on our
-          dynamic leaderboard.
+          {`Engage with our AI Listener, who’s always there to lend a listening ear, or relax with our ambient "Stare Mode" to calm your mind. EASE’s tools are designed to help you reflect, grow, and enhance your well-being, all in one place.`}
           <br />
           <br />
-          Join the millions of users who have unlocked their full potential with
-          Flozable. Start today and become #1 in maximizing your focus and
-          productivity.
+          Join a community of users who are committed to bettering their mental
+          health and fostering a positive mindset. Whether you’re looking for a
+          space to reflect, relax, or seek guidance, EASE is here to support you
+          every step of the way.
+          <br />
+          <br />
+          Start today and unlock a healthier, happier version of yourself with
+          EASE.
         </p>
 
         <div className="flex flex-wrap gap-3 mt-6">

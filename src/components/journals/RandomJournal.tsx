@@ -11,6 +11,7 @@ import {
 import { ArrowRightIcon } from "lucide-react";
 import { putJournal } from "@/apis/journalApi";
 import { useRouter } from "next/navigation";
+import { Input } from "../ui/input";
 
 const allPrompts = [
   "Three things that happened today",
@@ -50,6 +51,8 @@ export default function RandomJournal() {
 
   const router = useRouter();
 
+  const [prompt, setPrompt] = useState("");
+
   useEffect(() => {
     const newPrompts = [];
     const filteredPrompts = [...allPrompts];
@@ -64,7 +67,7 @@ export default function RandomJournal() {
   }, []);
 
   return (
-    <Card className="w-fit">
+    <Card className="w-fit h-fit">
       <CardHeader>
         <CardTitle>Choose prompt to start with!</CardTitle>
         <CardDescription>Writing will make you feel better.</CardDescription>
@@ -94,6 +97,24 @@ export default function RandomJournal() {
             );
           })}
         </div>
+        <Input
+          className="mt-4"
+          value={prompt}
+          onChange={(e) => {
+            setPrompt(e.target.value);
+          }}
+          placeholder="Or start with your own prompt!"
+          onKeyDown={async (e) => {
+            if (e.key === "Enter") {
+              const response = await putJournal({ title: prompt });
+              if (!response.success) return;
+
+              router.push(
+                `/dashboard/journals/${response.data.journal.journal_id}?edit=true`
+              );
+            }
+          }}
+        />
       </CardContent>
     </Card>
   );

@@ -7,39 +7,49 @@ import { HeroParallax } from "@/components/ui/hero-parallax";
 
 const products = [
   {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
-    thumbnail: "/img/demo/study.png",
-  },
-  {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail: "/img/demo/plans.png",
-  },
-  {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail: "/img/demo/stats.png",
-  },
-  {
-    title: "Editorially",
-    link: "https://editorially.org",
+    title: "Dashboard",
+    link: "/dashboard",
     thumbnail: "/img/demo/dashboard.png",
   },
   {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail: "/img/demo/leaderboard.png",
+    title: "Journal",
+    link: "/dashboard/journals/new",
+    thumbnail: "/img/demo/journal.png",
   },
   {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail: "/img/demo/friends.png",
+    title: "Prompt",
+    link: "/journals",
+    thumbnail: "/img/demo/prompt.png",
   },
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
-    thumbnail: "/img/demo/themes.png",
+    title: "Mood Trend",
+    link: "/dashboard",
+    thumbnail: "/img/demo/mood_trend.png",
+  },
+  {
+    title: "Daily Dose of Positivity",
+    link: "/dashboard",
+    thumbnail: "/img/demo/quote.png",
+  },
+  {
+    title: "Journals",
+    link: "/journals",
+    thumbnail: "/img/demo/journals.png",
+  },
+  {
+    title: "Mood Trend",
+    link: "/dashboard",
+    thumbnail: "/img/demo/mood_trend.png",
+  },
+  {
+    title: "Dashboard",
+    link: "/dashboard",
+    thumbnail: "/img/demo/dashboard.png",
+  },
+  {
+    title: "Journals",
+    link: "/journals",
+    thumbnail: "/img/demo/journals.png",
   },
 ];
 

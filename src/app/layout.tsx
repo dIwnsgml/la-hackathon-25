@@ -4,6 +4,7 @@ import "./globals.css";
 import AccountModal from "@/components/modals/AccountModal";
 import { AppContainer } from "@/components/structure/Providers";
 import { Toaster } from "@/components/ui/sonner";
+import { Suspense } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,11 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${roboto.variable}`}>
-        <AppContainer>
-          <AccountModal />
-          {children}
-        </AppContainer>
-        <Toaster richColors />
+        <Suspense>
+          <AppContainer>
+            <AccountModal />
+            {children}
+          </AppContainer>
+          <Toaster richColors />
+        </Suspense>
       </body>
     </html>
   );
