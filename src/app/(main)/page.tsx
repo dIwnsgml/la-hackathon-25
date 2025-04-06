@@ -18,7 +18,7 @@ const products = [
   },
   {
     title: "Prompt",
-    link: "/journals",
+    link: "/dashboard/journals",
     thumbnail: "/img/demo/prompt.png",
   },
   {
@@ -33,7 +33,7 @@ const products = [
   },
   {
     title: "Journals",
-    link: "/journals",
+    link: "/dashboard/journals",
     thumbnail: "/img/demo/journals.png",
   },
   {
@@ -48,7 +48,7 @@ const products = [
   },
   {
     title: "Journals",
-    link: "/journals",
+    link: "/dashboard/journals",
     thumbnail: "/img/demo/journals.png",
   },
 ];
