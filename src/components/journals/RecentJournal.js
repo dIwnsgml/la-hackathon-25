@@ -14,11 +14,14 @@ import { ArrowRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { DateTime } from "luxon";
 import parse from "html-react-parser";
+import { useAccount } from "@/hooks/accountHooks";
 
 export default function RecentJournal() {
   const router = useRouter();
 
   const [journal, setJournal] = useState({});
+
+  const { accountData } = useAccount();
 
   useEffect(() => {
     (async () => {
@@ -27,7 +30,7 @@ export default function RecentJournal() {
       const journal = journals.data.journals[0];
       setJournal(journal);
     })();
-  }, []);
+  }, [accountData?.user_id]);
 
   if (!journal?.journal_id) return null;
 

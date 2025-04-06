@@ -28,11 +28,14 @@ import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
+import { useAccount } from "@/hooks/accountHooks";
 
 export default function Journals() {
   const router = useRouter();
 
   const [journals, setJournals] = useState([]);
+
+  const { accountData } = useAccount();
 
   useEffect(() => {
     (async () => {
@@ -40,7 +43,7 @@ export default function Journals() {
       if (!journals.success) return;
       setJournals(journals.data.journals);
     })();
-  }, []);
+  }, [accountData?.user_id]);
 
   return (
     <main className="w-full px-10 py-10 min-h-dvh flex gap-10 h-fit flex-col">

@@ -5,11 +5,14 @@ import MoodTrendChart from "@/components/journals/MoodTrendChart";
 import RandomJournal from "@/components/journals/RandomJournal";
 import RecentJournal from "@/components/journals/RecentJournal";
 import { RandomQuotes } from "@/components/others/RandomQuotes";
+import { useAccount } from "@/hooks/accountHooks";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [moodScores, setMoodScore] = useState([]);
+
+  const { accountData } = useAccount();
 
   useEffect(() => {
     (async () => {
@@ -31,7 +34,7 @@ export default function Home() {
       });
       setMoodScore(averaged);
     })();
-  }, []);
+  }, [accountData?.user_id]);
 
   return (
     <main className="w-full px-10 py-10 h-full overflow-hidden">

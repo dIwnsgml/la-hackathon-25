@@ -7,8 +7,11 @@ import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import { House, NotebookPen } from "lucide-react";
 import { getAuthLogout } from "@/apis/authApi";
 import { ThemeToggleBtn } from "../buttons/ThemeToggleBtn";
+import { useAccount } from "@/hooks/accountHooks";
 
 export default function SidebarWrapper() {
+  const { clearAccountData } = useAccount();
+
   const links = [
     {
       label: "Dashboard",
@@ -29,8 +32,14 @@ export default function SidebarWrapper() {
       href: "/",
       icon: (
         <IconArrowLeft
-          onClick={() => {
-            getAuthLogout();
+          onClick={async () => {
+            const response = await getAuthLogout();
+            if (response.success) {
+              clearAccountData();
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
+            }
           }}
           className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200"
         />
@@ -38,7 +47,7 @@ export default function SidebarWrapper() {
     },
   ];
   const [open, setOpen] = useState(false);
-  
+
   return (
     <Sidebar open={open} setOpen={setOpen}>
       <SidebarBody className="justify-between gap-10">

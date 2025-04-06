@@ -19,7 +19,9 @@ export default function AccountBtn() {
             const response = await getAuthLogout();
             if (response.success) {
               clearAccountData();
-              window.location.reload();
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
             }
           }}
         >
