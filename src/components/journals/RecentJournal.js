@@ -37,7 +37,6 @@ export default function RecentJournal() {
 
   return (
     <Card
-      className=""
       onClick={() => {
         router.push(`/dashboard/journals/${journal.journal_id}`);
       }}
@@ -49,7 +48,7 @@ export default function RecentJournal() {
           <MoodIcon moodScore={journal.mood_score} />
         </CardDescription>
       </CardHeader>
-      <CardContent className="max-h-[25rem] overflow-auto">
+      <CardContent className="max-h-[20rem] overflow-auto">
         {parse(journal.contents || "")}
       </CardContent>
       <CardFooter>

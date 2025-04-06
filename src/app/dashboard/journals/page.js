@@ -43,7 +43,7 @@ export default function Journals() {
   }, []);
 
   return (
-    <main className="w-full px-10 py-10 min-h-dvh flex gap-10">
+    <main className="w-full px-10 py-10 min-h-dvh flex gap-10 h-fit flex-col">
       <RandomJournal />
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 w-full">
         {journals.map((journal, i) => {
@@ -52,7 +52,7 @@ export default function Journals() {
           ).toLocaleString(DateTime.DATE_HUGE);
           return (
             <Card
-              className="flex flex-col justify-between h-full max-h-100"
+              className="flex flex-col justify-between h-100"
               key={i}
               onClick={() => {
                 router.push(`/dashboard/journals/${journal.journal_id}`);

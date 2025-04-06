@@ -34,7 +34,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-full px-10 py-10 h-[50vh]">
+    <main className="w-full px-10 py-10 h-full overflow-hidden">
       <div className="flex gap-10">
         <RandomJournal />
         <div className="flex flex-col gap-10 w-min max-w-2xl">
