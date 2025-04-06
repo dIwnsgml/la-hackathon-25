@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import {
   $getRoot,
-  EditorState,
   ParagraphNode,
   SerializedEditorState,
   TextNode,
@@ -41,8 +40,7 @@ import { FontSizeToolbarPlugin } from "@/components/editor/plugins/toolbar/font-
 import { FontColorToolbarPlugin } from "@/components/editor/plugins/toolbar/font-color-toolbar-plugin";
 import { FontBackgroundToolbarPlugin } from "@/components/editor/plugins/toolbar/font-background-toolbar-plugin";
 import { ElementFormatToolbarPlugin } from "@/components/editor/plugins/toolbar/element-format-toolbar-plugin";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { $generateHtmlFromNodes } from "@lexical/html";
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 const editorConfig: InitialConfigType = {
@@ -63,40 +61,37 @@ const editorConfig: InitialConfigType = {
 
 export default function Editor({
   value,
-  onChange,
   onHtmlChange,
   onTextChange,
 }: {
   value?: SerializedEditorState;
-  onChange?: (value: SerializedEditorState) => void;
   onHtmlChange?: (html: string) => void;
   onTextChange?: (text: string) => void;
 }) {
   return (
-    <div className="w-full overflow-hidden rounded-lg border bg-background shadow">
+    <div className="w-full h-full overflow-hidden rounded-lg border bg-background shadow">
       <LexicalComposer
         initialConfig={{
           ...editorConfig,
-          ...(value ? { editorState: JSON.stringify(value) } : {}),
+          editorState: (editor) => {
+            if (typeof value === "string") {
+              const parser = new DOMParser();
+              const dom = parser.parseFromString(value, "text/html");
+              const nodes = $generateNodesFromDOM(editor, dom);
+              $getRoot().clear();
+              $getRoot().append(...nodes);
+            }
+          },
         }}
       >
         <TooltipProvider>
           <Plugins />
-          {onChange && (
-            <OnChangePlugin
-              ignoreSelectionChange
-              onChange={(editorState) => {
-                const serialized = editorState.toJSON()
-                onChange(serialized)
-              }}
-            />
-          )}
           {onHtmlChange && <HTMLChangePlugin onHtmlChange={onHtmlChange} />}
           {onTextChange && <PlainTextPlugin onTextChange={onTextChange} />}
         </TooltipProvider>
       </LexicalComposer>
     </div>
-  )
+  );
 }
 
 function HTMLChangePlugin({
@@ -121,26 +116,26 @@ function HTMLChangePlugin({
 function PlainTextPlugin({
   onTextChange,
 }: {
-  onTextChange: (text: string) => void
+  onTextChange: (text: string) => void;
 }) {
-  const [editor] = useLexicalComposerContext()
+  const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
-        const text = $getRoot().getTextContent()
-        onTextChange(text)
-      })
-    })
-  }, [editor])
+        const text = $getRoot().getTextContent();
+        onTextChange(text);
+      });
+    });
+  }, [editor]);
 
-  return null
+  return null;
 }
 
 const placeholder = "Start typing...";
 
 export function Plugins() {
-  const [floatingAnchorElem, setFloatingAnchorElem] =
+  const [_floatingAnchorElem, setFloatingAnchorElem] =
     useState<HTMLDivElement | null>(null);
 
   const onRef = (_floatingAnchorElem: HTMLDivElement) => {
@@ -183,7 +178,7 @@ export function Plugins() {
               <div className="" ref={onRef}>
                 <ContentEditable
                   placeholder={placeholder}
-                  className="ContentEditable__root relative block min-h-72 overflow-auto min-h-full px-8 py-4 focus:outline-none h-72"
+                  className="ContentEditable__root relative block overflow-auto px-8 py-4 focus:outline-none h-120"
                 />
               </div>
             </div>
