@@ -49,3 +49,8 @@ export function getTimezone() {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return timezone;
 }
+
+export function randomIntInRange(min, max) {
+  const randomVal = Math.floor(Math.random() * (max - min + 1)) + min;
+  return randomVal;
+}
