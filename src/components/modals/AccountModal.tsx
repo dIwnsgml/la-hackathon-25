@@ -98,6 +98,8 @@ export default function AccountModal() {
       if (!response.success) return;
       setAccountModal((prev) => ({ ...prev, opened: false }));
       accountRefetch();
+
+      router.push("/dashboard");
     },
     [accountRefetch, setAccountModal, searchParams, router]
   );
@@ -117,11 +119,7 @@ export default function AccountModal() {
         isSignIn: true,
       }));
 
-      const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.set("welcome", "true");
-      router.replace(`/dashboard?${newSearchParams.toString()}`, {
-        scroll: false,
-      });
+      router.push("/dashboard");
     },
     [accountRefetch, setAccountModal, searchParams, router]
   );
